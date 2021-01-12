@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaomi.dao.mapper.GoodMapper" >
+  <resultMap id="BaseResultMap" type="com.xiaomi.dao.vo.Good" >
+    <id column="good_id" property="goodId" jdbcType="INTEGER" />
+    <result column="good_name" property="goodName" jdbcType="VARCHAR" />
+    <result column="good_price" property="goodPrice" jdbcType="REAL" />
+    <result column="good_type" property="goodType" jdbcType="VARCHAR" />
+    <result column="good_color" property="goodColor" jdbcType="VARCHAR" />
+    <result column="good_count" property="goodCount" jdbcType="INTEGER" />
+    <result column="good_img" property="goodImg" jdbcType="VARCHAR" />
+    <result column="good_desc" property="goodDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    good_id, good_name, good_price, good_type, good_color, good_count, good_img, good_desc
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xiaomi.dao.vo.GoodExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from good
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from good
+    where good_id = #{goodId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from good
+    where good_id = #{goodId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiaomi.dao.vo.GoodExample" >
+    delete from good
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiaomi.dao.vo.Good" >
+    insert into good (good_id, good_name, good_price, 
+      good_type, good_color, good_count, 
+      good_img, good_desc)
+    values (#{goodId,jdbcType=INTEGER}, #{goodName,jdbcType=VARCHAR}, #{goodPrice,jdbcType=REAL}, 
+      #{goodType,jdbcType=VARCHAR}, #{goodColor,jdbcType=VARCHAR}, #{goodCount,jdbcType=INTEGER}, 
+      #{goodImg,jdbcType=VARCHAR}, #{goodDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiaomi.dao.vo.Good" >
+    insert into good
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodId != null" >
+        good_id,
+      </if>
+      <if test="goodName != null" >
+        good_name,
+      </if>
+      <if test="goodPrice != null" >
+        good_price,
+      </if>
+      <if test="goodType != null" >
+        good_type,
+      </if>
+      <if test="goodColor != null" >
+        good_color,
+      </if>
+      <if test="goodCount != null" >
+        good_count,
+      </if>
+      <if test="goodImg != null" >
+        good_img,
+      </if>
+      <if test="goodDesc != null" >
+        good_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodId != null" >
+        #{goodId,jdbcType=INTEGER},
+      </if>
+      <if test="goodName != null" >
+        #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodPrice != null" >
+        #{goodPrice,jdbcType=REAL},
+      </if>
+      <if test="goodType != null" >
+        #{goodType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodColor != null" >
+        #{goodColor,jdbcType=VARCHAR},
+      </if>
+      <if test="goodCount != null" >
+        #{goodCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodImg != null" >
+        #{goodImg,jdbcType=VARCHAR},
+      </if>
+      <if test="goodDesc != null" >
+        #{goodDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiaomi.dao.vo.GoodExample" resultType="java.lang.Integer" >
+    select count(*) from good
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update good
+    <set >
+      <if test="record.goodId != null" >
+        good_id = #{record.goodId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodName != null" >
+        good_name = #{record.goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodPrice != null" >
+        good_price = #{record.goodPrice,jdbcType=REAL},
+      </if>
+      <if test="record.goodType != null" >
+        good_type = #{record.goodType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodColor != null" >
+        good_color = #{record.goodColor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodCount != null" >
+        good_count = #{record.goodCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodImg != null" >
+        good_img = #{record.goodImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodDesc != null" >
+        good_desc = #{record.goodDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update good
+    set good_id = #{record.goodId,jdbcType=INTEGER},
+      good_name = #{record.goodName,jdbcType=VARCHAR},
+      good_price = #{record.goodPrice,jdbcType=REAL},
+      good_type = #{record.goodType,jdbcType=VARCHAR},
+      good_color = #{record.goodColor,jdbcType=VARCHAR},
+      good_count = #{record.goodCount,jdbcType=INTEGER},
+      good_img = #{record.goodImg,jdbcType=VARCHAR},
+      good_desc = #{record.goodDesc,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiaomi.dao.vo.Good" >
+    update good
+    <set >
+      <if test="goodName != null" >
+        good_name = #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodPrice != null" >
+        good_price = #{goodPrice,jdbcType=REAL},
+      </if>
+      <if test="goodType != null" >
+        good_type = #{goodType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodColor != null" >
+        good_color = #{goodColor,jdbcType=VARCHAR},
+      </if>
+      <if test="goodCount != null" >
+        good_count = #{goodCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodImg != null" >
+        good_img = #{goodImg,jdbcType=VARCHAR},
+      </if>
+      <if test="goodDesc != null" >
+        good_desc = #{goodDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where good_id = #{goodId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiaomi.dao.vo.Good" >
+    update good
+    set good_name = #{goodName,jdbcType=VARCHAR},
+      good_price = #{goodPrice,jdbcType=REAL},
+      good_type = #{goodType,jdbcType=VARCHAR},
+      good_color = #{goodColor,jdbcType=VARCHAR},
+      good_count = #{goodCount,jdbcType=INTEGER},
+      good_img = #{goodImg,jdbcType=VARCHAR},
+      good_desc = #{goodDesc,jdbcType=VARCHAR}
+    where good_id = #{goodId,jdbcType=INTEGER}
+  </update>
+</mapper>
